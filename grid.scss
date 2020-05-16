@@ -1,0 +1,25 @@
+$breakpoints: (sm: 500px, md: 768px, lg: 1024px) !default;
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-gap: 20px;
+}
+
+.col {
+  @for $column from 1 through 12 {
+    &-#{$column} {
+      grid-column: span $column
+    }
+  }
+
+  @each $breakpoint, $value in $breakpoints {
+    @for $column from 1 through 12 {
+      &-#{$breakpoint}-#{$column} {
+        @media (min-width: map-get($breakpoints, $breakpoint)) {
+          grid-column: span $column;
+        }
+      }
+    }
+  }
+}
